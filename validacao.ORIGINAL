@@ -1,0 +1,28 @@
+<?php 
+if((!isset($_SESSION))OR(session_status()!==PHP_SESSION_ACTIVE)){
+	session_start();
+}
+if(!empty($_POST) AND (empty($_POST['usuario']) OR empty($_POST['senha']))){
+	header("Location: login?err=1");exit;
+}else{
+	$dbhandle = mysqli_connect('db', 'votacao', 'voto2020') or trigger_error(mysqli_error($dbhandle));
+	mysqli_select_db($dbhandle, 'consulta_voto') or trigger_error(mysqli_error($dbhandle));
+
+	$usuario = mysqli_real_escape_string($dbhandle, $_POST['usuario']);
+	$senha = mysqli_real_escape_string($dbhandle, $_POST['senha']);
+
+	$sql = "SELECT `id`, `nome`, `nivel` FROM `usuarios` WHERE (`usuario` = '".$usuario ."') AND (`senha` = '". sha1($senha) ."') AND (`ativo` = 1) LIMIT 1";
+
+	$query = mysqli_query($dbhandle, $sql);
+
+	if(mysqli_num_rows($query) == 1){
+		$resultado = mysqli_fetch_assoc($query);
+		$_SESSION['UsuarioID'] = $resultado['id'];
+		$_SESSION['UsuarioNome'] = $resultado['nome'];
+		$_SESSION['UsuarioNivel'] = $resultado['nivel'];
+		header("Location: index"); exit;
+	}else{
+		header("Location: login?err=1");exit;
+	}
+}
+?>
