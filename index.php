@@ -39,7 +39,7 @@ $total_N_entregue = $resultado2['ttl_Nretirou'];
           <div class="alert alert-warning text-center" role="alert">
           <h3> Cestas não retiradas</h3>
             <h2><strong><?=$total_N_entregue;?></strong></h2>
-            <?=$dados['ttl_Nretirou'];?>
+           <!-- <?=$dados['ttl_Nretirou'];?>-->
           </div>
           </div>
           <div class="col-lg-2"></div>

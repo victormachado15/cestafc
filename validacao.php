@@ -6,7 +6,7 @@ if (!empty($_POST) AND (empty($_POST['usuario']) OR empty($_POST['senha']))) {
 }
 // Tenta se conectar ao servidor MySQL
 
-$dbhandle = mysqli_connect('db', 'root', 'cesta@2020') or trigger_error(mysqli_error($dbhandle));
+//$dbhandle = mysqli_connect('db', 'root', 'cesta@2020') or trigger_error(mysqli_error($dbhandle));
 // Tenta se conectar a um banco de dados MySQL
 mysqli_select_db($dbhandle, 'cesta_fundacao') or trigger_error(mysqli_error($dbhandle));
 $usuario = mysqli_real_escape_string($dbhandle, $_POST['usuario']);

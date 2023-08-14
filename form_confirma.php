@@ -36,7 +36,7 @@ include('sidebar.php');
                     </div>
                   </div>      
                   <div class="form-group">
-                    <label class="col-sm-2 control-label">Já retirou a Cesta?</label>
+                    <label class="col-sm-2 control-label">Já retirou a Cesta do mês?</label>
                     <div class="col-sm-10">
                     <div class="alert alert-success" role="alert">
                         Servidor Recebeu a Cesta.
