@@ -8,20 +8,27 @@ if ((isset($_POST['cpf'])) && ($_POST['cpf'] != "")){
 
     // Tenta se conectar a um banco de dados MySQL
     mysqli_select_db($dbhandle, 'cesta_fundacao') or trigger_error(mysqli_error($dbhandle));
-    $id_usuario = mysqli_real_escape_string($dbhandle,$_SESSION['UsuarioID']);  
-    $cpf = mysqli_real_escape_string($dbhandle,$_POST['cpf']) ;
-    $pessoaretira = $_POST['pessoaretira'] ;
-    //echo  $pessoaretira;
+    $id_servidor = mysqli_real_escape_string($dbhandle,$_POST['id_servidor']);
+    $id_usuario = mysqli_real_escape_string($dbhandle,$_SESSION['UsuarioID']);  //registrado_por
+    // $cpf = mysqli_real_escape_string($dbhandle,$_POST['cpf']) ;
+    //tratamento para gerar protocolo
     $protocolo = date('dHis');
     $protocolo_int = $id_usuario.intval($protocolo);
+    $retirado_por = $_POST['pessoaretira'];
+    $mes_cesta = $_POST['mes_cesta'];
+    //atualiza valor do último recebido
+    $mes_cesta = $mes_cesta + 1;
 
  /*  $sql = "UPDATE `cestas_entrega` SET `recebeu` = 1, `data_hora` = CURRENT_TIMESTAMP,`registrado_por` = $id_usuario , `protocolo` = $protocolo_int WHERE `cpf` = '".$cpf."'";*/
 
-   $sql = "UPDATE `cestas_entrega` SET `recebeu` = 1, `data_hora` = CURRENT_TIMESTAMP,`registrado_por` = $id_usuario , `protocolo` = $protocolo_int, `retirado_por` = '$pessoaretira' WHERE `cpf` = '".$cpf."'"; 
+//    $sql = "UPDATE `cestas_entrega` SET `recebeu` = 1, `data_hora` = CURRENT_TIMESTAMP,`registrado_por` = $id_usuario , `protocolo` = $protocolo_int, `retirado_por` = '$pessoaretira' WHERE `cpf` = '".$cpf."'"; 
+    $sql = "INSERT INTO cestas_entrega2023 (id_servidor, registrado_por, data_hora, protocolo, retirado_por, mes_cesta) 
+            VALUES ('$id_servidor', '$id_usuario', CURRENT_TIMESTAMP, '$protocolo_int', '$retirado_por', '$mes_cesta')";
 
         if ($dbhandle->query($sql) === TRUE) {
-            $protocolo = date('dHis');
-            $protocolo_int = intval($protocolo);
+            //precisa disso de novo?
+            // $protocolo = date('dHis');
+            // $protocolo_int = intval($protocolo);
             // Verifica se cadastrou foto
            /*  if ( is_uploaded_file( $_FILES["foto-cesta"]["tmp_name"] ) && $_FILES["foto-cesta"]["error"] === 0 ) {
                 $foo = new upload($_FILES['foto-cesta']); 
@@ -59,7 +66,7 @@ if ((isset($_POST['cpf'])) && ($_POST['cpf'] != "")){
              }else{
                     
                     echo "<script LANGUAGE='JavaScript'> window.alert('Não foi possivel registrar! Tente novamente.'); 
-                        window.history.back(-2); </script>";
+                        </script>";
                 // } echo "Error updating record: " . $dbhandle->error;
                 echo "Error updating record: " . $dbhandle->error;
              }

@@ -17,4 +17,4 @@ if ($dbhandle->connect_error) {
     die("Falha na conexão: " . $dbhandle->connect_error);
 }
 
-echo "Conexão bem-sucedida ao banco de dados!";
+//echo "Conexão bem-sucedida ao banco de dados!";

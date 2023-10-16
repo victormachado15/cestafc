@@ -34,7 +34,7 @@ if ((isset($_POST['titulo'])) && ($_POST['titulo'] != "")){
             $css_votou = "alert-warning";
         }
         mysqli_close($dbhandle);
-
+      
 ?>
     <!--main content start-->
     <section id="main-content">

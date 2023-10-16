@@ -46,9 +46,8 @@
 
                 <div class="form-group col" id="label-busca">
                   <label class="col-sm-2 control-label"><span style="color:#ff0000!important; border: none;">*</span>Mês (atual padrão)</label>
-                  <div class="col-sm-4">
-                    <div class="form-control col-sm-6">
-                      <select name="mes">
+                  <div class="col-sm-2">
+                      <select id="mes" name="mes" class="form-control col-sm-6">
                         <option value="1" <?php if (date("n") === "1") echo "selected"; ?>>Janeiro</option>
                         <option value="2" <?php if (date("n") === "2") echo "selected"; ?>>Fevereiro</option>
                         <option value="3" <?php if (date("n") === "3") echo "selected"; ?>>Março</option>
@@ -62,7 +61,6 @@
                         <option value="11" <?php if (date("n") === "11") echo "selected"; ?>>Novembro</option>
                         <option value="12" <?php if (date("n") === "12") echo "selected"; ?>>Dezembro</option>
                       </select>
-                    </div>
                   </div>
                 </div>
 

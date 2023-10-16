@@ -14,6 +14,7 @@
                 <li><a class="" href="form_consulta">Consultar e Entregar</a></li>
                 <li><a class="" href="form_relat">Relatório Entregues</a></li>
                 <li><a class="" href="form_relat_pend">Relatório Pendentes</a></li>
+                <li><a class="" href="form_importar">Atualizar Ativos</a></li>
                 <!-- <li><a class="" href="form-consulta-nome">Consultar por nome</a></li> -->
 
             </ul>

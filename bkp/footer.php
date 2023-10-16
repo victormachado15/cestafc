@@ -31,7 +31,7 @@
   <script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
   <script src="js/owl.carousel.js"></script>
   <!-- jQuery full calendar -->
-  <<script src="js/fullcalendar.min.js"></script>
+  <script src="js/fullcalendar.min.js"></script>
     <!-- Full Google Calendar - Calendar -->
     <script src="assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
     <!--script for this page only-->
@@ -56,6 +56,44 @@
     <script src="js/sparklines.js"></script>
     <script src="js/charts.js"></script>
     <script src="js/jquery.slimscroll.min.js"></script>
+
+
+  
+<script type='text/javascript'>
+    
+    $(document).ready(function(){     
+          
+          $("#pesquisa").keyup(function() {
+
+              var pesquisa = $("#pesquisa").val();
+              if(pesquisa.length > 2){
+                var url = "consulta-eleitor-nome.php?pesquisa="+pesquisa
+
+                var xhttp;
+                xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function() {
+                  if (this.readyState == 4 && this.status == 200) {
+                  
+                  document.getElementById("resultado").innerHTML = this.responseText;
+                  
+                  }
+                };
+                xhttp.open("GET", "consulta-eleitor-nome.php?pesquisa="+pesquisa, true);
+                xhttp.send();  
+              }
+        });
+    });
+
+        document.addEventListener('DOMContentLoaded', ()=> {
+            const form = document.getElementById('form_consulta');
+            form.addEventListener('submit', (e)=> {
+                e.preventDefault();
+            });
+        });
+</script> 
+
+
     <script>
       //knob
       $(function() {
@@ -108,24 +146,66 @@
           $("#buscar").click(function() {
 
               var titulo = $("#titulo").val();
-              var url = "consulta-eleitor.php?titulo="+titulo
+              var matric = $("#matric").val();
+              var mes = $("#mes").val();
+              var valido = 1;
+              if((titulo.length == 0) && (matric.length == 0)){
+                      alert("Por favor, informe o CPF e Matrícula!");
+                      valido = 0;
+              }else{  
+                  if (titulo.length == 0) {
+                          alert("Por favor, informe o CPF!");
+                          valido = 0;
+                  }
+                  if (matric.length == 0) {
+                          alert("Por favor, informe a Matrícula!");
+                          valido = 0;
+                  }
+              }
+              var url = "consulta-eleitor_copy.php?titulo="+titulo+"matricula="+matric+"mes="+mes;
 
               var xhttp;
               xhttp = new XMLHttpRequest();
 
               xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
+                if (this.readyState == 4 && this.status == 200 && valido == 1) {
                 
                 document.getElementById("resultado").innerHTML = this.responseText;
-                
+                $('#section-buscar').hide();
                 }
             };
-            xhttp.open("GET", "consulta-eleitor.php?titulo="+titulo, true);
+            xhttp.open("GET", "consulta-eleitor_copy.php?titulo="+titulo+"&&mes="+mes, true);
             xhttp.send();  
         });
     });
-</script>    
+
+        document.addEventListener('DOMContentLoaded', ()=> {
+            const form = document.getElementById('form_consulta');
+            form.addEventListener('submit', (e)=> {
+                e.preventDefault();
+            });
+        });
+        
+</script>   
+
+<script type="text/javascript">
+  $(document).ready(function(){ 
+        // Get the input field
+      var input = document.getElementById("titulo");
+
+      // Execute a function when the user releases a key on the keyboard
+      input.addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+          // Cancel the default action, if needed
+          event.preventDefault();
+          // Trigger the button element with a click
+          document.getElementById("buscar").click();
+        }
+      });
+  });
+</script>
+
 
 </body>
-
 </html>

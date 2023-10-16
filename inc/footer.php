@@ -147,6 +147,7 @@
 
               var titulo = $("#titulo").val();
               var matric = $("#matric").val();
+              var mes = $("#mes").val();
               var valido = 1;
               if((titulo.length == 0) && (matric.length == 0)){
                       alert("Por favor, informe o CPF e Matrícula!");
@@ -161,7 +162,7 @@
                           valido = 0;
                   }
               }
-              var url = "consulta-eleitor.php?titulo="+titulo+"matricula="+matric;
+              var url = "consulta-eleitor_copy.php?titulo="+titulo+"matricula="+matric+"mes="+mes;
 
               var xhttp;
               xhttp = new XMLHttpRequest();
@@ -173,7 +174,7 @@
                 $('#section-buscar').hide();
                 }
             };
-            xhttp.open("GET", "consulta-eleitor.php?titulo="+titulo, true);
+            xhttp.open("GET", "consulta-eleitor_copy.php?titulo="+titulo+"&&mes="+mes, true);
             xhttp.send();  
         });
     });
